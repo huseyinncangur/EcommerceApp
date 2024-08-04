@@ -50,7 +50,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css",
+               "node_modules/ngx-spinner/animations/ball-clip-rotate.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -121,5 +123,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "b09f5414-24fe-409e-a545-785a1b5f2b53"
   }
 }
