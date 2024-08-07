@@ -46,9 +46,8 @@ router.post("/update", async (req, res) => {
 
     try {
         const { _id, name } = req.body;
-        const category = Category.findOne(_id);
-        category.name = name;
-        await Category.findByIdAndUpdate(_id, category);
+        const category = Category.findOne({_id:_id});
+        await Category.findByIdAndUpdate(_id,req.body);
         res.json({ message: "Güncelleme işlemi başarılı." });
     } catch (error) {
 
@@ -59,7 +58,7 @@ router.get("/getAll", async (req, res) => {
 
 
     try {
-        const categories = await  Category.find();
+        const categories = await Category.find();
         if (categories != null)
             res.json(categories);
         else
@@ -69,7 +68,6 @@ router.get("/getAll", async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 })
-
 module.exports = router;;
 
 
