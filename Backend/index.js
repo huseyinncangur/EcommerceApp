@@ -9,8 +9,10 @@ app.use(cors());
 
 
 const authRouter = require("./routes/auth.router");
+const categoryRouter = require("./routes/category.router");
 
 app.use("/api/auth",authRouter);
+app.use("/api/category",categoryRouter);
  
 
  connection();
