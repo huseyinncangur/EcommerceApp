@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ValidDirective } from '../directives/valid.directive';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { BlankComponent } from '../components/blank/blank.component';
+import { TableComponent } from '../components/table/table.component';
 
 
 
@@ -14,7 +16,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     FormsModule,
     RouterModule,
     ValidDirective,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    BlankComponent,
+    TableComponent
     
     
   ],
@@ -23,7 +27,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     FormsModule,
     RouterModule,
     ValidDirective,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    BlankComponent,
+    TableComponent
   ]
 })
 export class SharedModule { }

@@ -1,56 +1,35 @@
-<div class="card mt-2">
-    <div class="card-header">
-        <h4 style="float: left;">Kategoriler</h4>
-        <nav aria-label="breadcrumb" style="float: right;">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a routerLink="/">Anasayfa</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Kategoriler</li>
-            </ol>
-        </nav>
-    </div>
-    <div class="card-body">
-        <div class="form-group">
-            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-                <i class="fa fa-plus"></i>
-            </button>
+<app-blank title="Kategoriler">
+    <div class="form-group">
+        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+            <i class="fa fa-plus"></i>
+        </button>
 
-            <div class="col-md-4" style="float: right;">
-                <input type="search" class="form-control" placeholder="Ara...">
-            </div>
-
+        <div class="col-md-4" style="float: right;">
+            <input type="search" [(ngModel)]="search" class="form-control" placeholder="Ara...">
         </div>
 
-        <div class="form-group mt-2">
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr style="background-color: #f1f1f1;">
-                        <td>#</td>
-                        <td>Kategori Adı</td>
-                        <td>İşlemler</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for(category of categories;track category; let index = $index)
-                    {
-                    <tr>
-                        <td>{{index + 1}}</td>
-                        <td>{{category.name}}</td>
-                        <td>
-                            <button class="btn btn-outline-warning btn-sm" (click)="get(category)" data-bs-toggle="modal" data-bs-target="#updateModal">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                            <button class="btn btn-outline-danger btn-sm mx-1" (click)="remove(category)">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    }
-
-                </tbody>
-            </table>
-        </div>
     </div>
-</div>
+
+    <app-table [heads]='["#","Kategori Adı","İşlemler"]'>
+        @for(category of categories|SearchPipe:search;track category ; let index = $index)
+        {
+        <tr>
+            <td>{{index + 1}}</td>
+            <td>{{category.name}}</td>
+            <td>
+                <button class="btn btn-outline-warning btn-sm" (click)="get(category)"
+                    data-bs-toggle="modal" data-bs-target="#updateModal">
+                    <i class="fa fa-edit"></i>
+                </button>
+                <button class="btn btn-outline-danger btn-sm mx-1" (click)="remove(category)">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+        }
+    </app-table>
+</app-blank>
+ 
 
 <!-- Add Modal -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">

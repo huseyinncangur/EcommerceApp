@@ -5,12 +5,14 @@ import { CategoryModel } from './models/category.model';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
 import { SwalService } from '../../common/services/swal.service';
+import { SearchPipe } from './pipes/search.pipe';
+ 
 
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule,SearchPipe],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css'
 })
@@ -18,6 +20,7 @@ export class CategoryComponent implements OnInit {
 
   categories: CategoryModel[] = [];
   category: CategoryModel = new CategoryModel();
+  search: string = "";
 
   constructor(private _categoryService: CategoryService,
     private _toastr: ToastrService,
@@ -65,7 +68,7 @@ export class CategoryComponent implements OnInit {
     }
 
   }
-  remove(category:CategoryModel) {
+  remove(category: CategoryModel) {
     this._swal.callSwal("Kategoriyi Silmek İstiyor musunuz ?", category.name, "Sil", () => {
 
       this._categoryService.removeById(category._id, res => {
