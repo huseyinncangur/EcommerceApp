@@ -46,7 +46,7 @@ router.post("/removeById", async (req, res) => {
     })
 
 })
-router.get("/getAll", async (req, res) => {
+router.post("/getAll", async (req, res) => {
 
     response(res, async () => {
 
@@ -118,35 +118,50 @@ router.post("/update", update.array("images"), async (req, res) => {
             categories: categories
         };
 
-        await Product.findByIdAndUpdate(_id,product);
+        await Product.findByIdAndUpdate(_id, product);
 
-        res.json({message:"Güncelleme işlemi yapıldı."})
+        res.json({ message: "Güncelleme işlemi yapıldı." })
     })
 
 
 
 
 })
-router.post("/removeImageByProductId",async(req,res)=>{
+router.post("/removeImageByProductId", async (req, res) => {
 
-    const {_id,index} = req.body;
+    const { _id, index } = req.body;
 
     let product = await Product.findById(_id);
 
-    if(product.imageUrls.length ==1)
-    {
-        res.status(500).json({message:"Son ürün resmini silemezsiniz!"});
+    if (product.imageUrls.length == 1) {
+        res.status(500).json({ message: "Son ürün resmini silemezsiniz!" });
 
     }
-    else
-    {
+    else {
         let image = product.imageUrls[index];
-        product.imageUrls.splice(index,1);
-        await Product.findByIdAndUpdate(_id,product);  
-        fs.unlink(image.path,()=>{})
-        res.json({message:"Resim kaldırıldı."})
+        product.imageUrls.splice(index, 1);
+        await Product.findByIdAndUpdate(_id, product);
+        fs.unlink(image.path, () => { })
+        res.json({ message: "Resim kaldırıldı." })
 
     }
+
+})
+router.post("/changeActiveStatus", async (req, res) => {
+
+    response(res, async () => {
+
+        const {_id} = req.body;
+
+        const product = await Product.findById(_id);
+
+        product.isActive = !product.isActive;
+
+        await Product.findByIdAndUpdate(_id,product);
+        
+        res.json({message:"Ürünün durumu değiştirildi."})
+
+    })
 
 })
 
