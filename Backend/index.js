@@ -6,13 +6,16 @@ const connection = require("./database/db");
 
 app.use(express.json());
 app.use(cors());
+app.use("/uploads",express.static(path.join(__dirname,"uploads")));
 
 
 const authRouter = require("./routes/auth.router");
 const categoryRouter = require("./routes/category.router");
+const productRouter = require("./routes/product.router")
 
 app.use("/api/auth",authRouter);
 app.use("/api/category",categoryRouter);
+app.use("api/product",productRouter);
  
 
  connection();
