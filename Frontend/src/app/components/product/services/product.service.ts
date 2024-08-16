@@ -15,18 +15,19 @@ export class ProductService {
 
   add(model: FormData, callBack: (res: MessageResponseModel) => void) {
 
-    this._httpService.post<MessageResponseModel>("products/add", model, res => callBack(res));
+    
+    this._httpService.post<MessageResponseModel>("product/add", model, res => callBack(res));
 
   }
   update(model: FormData, callBack: (res: MessageResponseModel) => void) {
 
-    this._httpService.post<MessageResponseModel>("products/update", model, res => callBack(res));
+    this._httpService.post<MessageResponseModel>("product/update", model, res => callBack(res));
 
   }
 
   getAll(model: RequestModel, callBack: (res: ResultModel<ProductModel[]>) => void) {
 
-    this._httpService.post<ResultModel<ProductModel[]>>("products/getall", model, res => callBack(res))
+    this._httpService.post<ResultModel<ProductModel[]>>("product/getAll", model, res => callBack(res))
 
   }
   removeById(_id: string, callBack: (res: MessageResponseModel) => void) {
@@ -35,14 +36,14 @@ export class ProductService {
   }
   changeActiveStatus(_id: string, callBack: (res: MessageResponseModel) => void) {
     let model = { _id: _id };
-    this._httpService.post<MessageResponseModel>("category/changeActiveStatus", model, res => callBack(res));
+    this._httpService.post<MessageResponseModel>("product/changeActiveStatus", model, res => callBack(res));
   }
   getById(_id: string, callBack: (res: ProductModel) => void) {
     let model = { _id: _id };
     this._httpService.post<ProductModel>(`product/getById`, model, res => callBack(res))
   }
-  removeImageByProductId(model: any, callBack: (res: ProductModel) => void) {
-    this._httpService.post<ProductModel>(`product/removeImageByProductId`, model, res => callBack(res))
+  removeImageByProductId(model: any, callBack: (res: MessageResponseModel) => void) {
+    this._httpService.post<MessageResponseModel>(`product/removeImageByProductId`, model, res => callBack(res))
   }
 
 

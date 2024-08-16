@@ -2,6 +2,8 @@ const express = require("express");
 const app =express();
 const cors = require("cors");
 const connection = require("./database/db");
+const path = require('path');
+
 
 
 app.use(express.json());
@@ -15,7 +17,7 @@ const productRouter = require("./routes/product.router")
 
 app.use("/api/auth",authRouter);
 app.use("/api/category",categoryRouter);
-app.use("api/product",productRouter);
+app.use("/api/product",productRouter);
  
 
  connection();

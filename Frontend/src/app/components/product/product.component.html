@@ -1,1 +1,105 @@
-<p>product works!</p>
+<app-blank title="Ürünler">
+
+    <div class="form-group">
+        <button class=" btn btn-outline-primary" routerLink="/product/add">
+            <i class="fa fa-plus"></i>
+        </button>
+
+        <div class="col-md-3" style="float:right">
+            <input class="form-control" type="search" [(ngModel)]="request.search" (search)="getAll(1)"
+                (keyup)="search()" placeholder="Aranacak değeri yazın...">
+        </div>
+    </div>
+
+    <app-table
+        [heads]='["#","Ürün Resmi","Ürün Adı","Kategoriler","Stok Bilgisi","Birim Fiyatı","Oluşturulma Tarihi","Aktif / Pasif","İşlemler"]'>
+
+        @for(product of result.data; track product; let index = $index)
+        {
+        <tr>
+            <td>{{index+1}}</td>
+            <td>
+                <img style="max-width: 200px;" [src]="'http://localhost:5000/' + cleanImageUrl(product.imageUrls[0].path)">
+               
+            </td>
+            <td>{{product.name}}</td>
+            <td>
+                <ul>
+                    @for(category of product.categories; track category;)
+                    {
+                    <li>{{category.name}}</li>
+                    }
+                </ul>
+            </td>
+            <td>{{product.stock}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.createdDate | date: 'dd.MM.yyyy HH:mm:ssss'}}</td>
+            <td>
+
+                 <button (click)="changeProductStatus(product._id)" class="btn"[ngClass]="product.isActive ? 'btn-danger':'btn-success'">
+                  {{product.isActive ? "Pasif Yap" : "Aktif Yap"}}
+                 </button>
+
+                <!-- <div class="form-check">
+                    <input (change)="changeProductStatus(product._id)" class="form-check-input" type="checkbox" value="true" id="flexCheckChecked" >
+                     {{product.isActive}}
+                </div> -->
+            </td>
+            <td>
+                <button routerLink="/product/update/{{product._id}}" class="btn btn-outline-warning btn-sm">
+                    <i class="fa fa-edit"></i>
+                </button>
+                <button (click)="removeById(product._id)" class="btn btn-outline-danger btn-sm mx-1">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+
+        }
+
+    </app-table>
+
+    <!--Pagination-->
+
+    <select name="pageSize" id="pageSize" class="form-control" [(ngModel)]="request.pageSize"
+        style="width: 65px; float: left;">
+        <option>5</option>
+        <option>10</option>
+        <option>20</option>
+        <option>50</option>
+        <option>100</option>
+        <option>200</option>
+        <option>500</option>
+        <option>1000</option>
+    </select>
+
+    <nav style="float: right;">
+
+        <ul class="pagination">
+            <li class="page-item" [ngClass]="result.isFirstPage ? 'disabled' : ''">
+                <a class="page-link" (click)="getAll(1)"> İlk</a>
+            </li>
+            <li class="page-item" [ngClass]="result.isFirstPage ? 'disabled' : ''">
+                <a class="page-link" (click)="getAll(request.pageNumber - 1 )">Önceki</a>
+            </li>
+
+            @for(page of pageNumbers; track page )
+            {
+            <li class="page-item">
+                <a class="page-link" [ngClass]="result.pageNumber==page? 'active' : ''" (click)="getAll(page)">
+                    {{page}}
+                </a>
+            </li>
+            }
+            <li class="page-item" [ngClass]="result.isFirstPage ? 'disabled' : ''">
+                <a class="page-link" (click)="getAll(request.pageNumber + 1 )">Sonraki</a>
+            </li>
+            <li class="page-item" [ngClass]="result.isLastPage ? 'disabled' : ''">
+                <a class="page-link" (click)="getAll(result.totalPageCount )">Son</a>
+            </li>
+        </ul>
+
+
+    </nav>
+
+</app-blank>

@@ -1,6 +1,6 @@
 export class RequestModel {
-    pageNumber: Number = 1;
-    pageSize: Number = 10;
+    pageNumber: number = 1;
+    pageSize: number = 10;
     search:string = "";
 
 }
