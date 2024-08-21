@@ -1,1 +1,72 @@
-<p>home works!</p>
+<app-blank title="Anasayfa">
+
+    <div class="row">
+        <div class="col-md-3 frame">
+            <ul>
+                <li (click)="changeSelectedCategory('','Tümü')"
+                    [ngClass]="requestModel.categoryName=='Tümü' ? 'active' :''">Tümü</li>
+                @for(category of categories;track category; )
+                {
+                <li (click)="changeSelectedCategory(category._id,category.name)"
+                    [ngClass]="requestModel.categoryName==category.name ? 'active' :''">{{category.name}}</li>
+
+                }
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-8">
+                        <input [(ngModel)]="requestModel.search" type="search" class="form-control"
+                            placeholder="Aranacak değeri yazın...">
+                    </div>
+                    <div class="col-md-3">
+                        <select [(ngModel)]="requestModel.priceFilter" class="form-control">
+                            <option value=0>Seçim Yapınız</option>
+                            <option value=1>Artan fiyat</option>
+                            <option value=-1>Azalan fiyat</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <button (click)="getAll()" class="btn btn-outline-primary">Getir</button>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row mt-2">
+                @for(product of products; track product;)
+                {
+                <div class="col-md-4 mt-4">
+
+                    <div class="card text-center">
+
+                        <div class="card-header">
+                            <h1>{{product.name}}</h1>
+                        </div>
+                        <div class="card-body">
+                                <img style="max-width: 200px;" [src]="'http://localhost:5000/' + cleanImageUrl(product.imageUrls[0].path)">
+                            <hr>
+                            <h5 class="mt-2">Kalan Adet: {{product.stock}}</h5>
+                            <h4 class="alert alert-danger">Adet Fiyatı : {{product.price}} TL</h4>
+                            <button *ngIf="product.stock >0" class="btn btn-outline-success w-100">
+                                Sepete Ekle
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                }
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+</app-blank>

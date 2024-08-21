@@ -15,7 +15,7 @@ export class ProductService {
 
   add(model: FormData, callBack: (res: MessageResponseModel) => void) {
 
-    
+
     this._httpService.post<MessageResponseModel>("product/add", model, res => callBack(res));
 
   }
@@ -43,7 +43,10 @@ export class ProductService {
     this._httpService.post<ProductModel>(`product/getById`, model, res => callBack(res))
   }
   removeImageByProductId(model: any, callBack: (res: MessageResponseModel) => void) {
-    this._httpService.post<MessageResponseModel>(`product/removeImageByProductId`, model, res => callBack(res))
+    this._httpService.post<MessageResponseModel>(`product/removeImageByProduc tId`, model, res => callBack(res))
+  }
+  getAllForHomePage(model: RequestModel, callBack: (res: ProductModel[]) => void) {
+    this._httpService.post<ProductModel[]>("product/getAllForHomePage", model, res => callBack(res))
   }
 
 
